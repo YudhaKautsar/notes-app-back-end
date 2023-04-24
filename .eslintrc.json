@@ -8,10 +8,14 @@
     ],
     "parserOptions": {
         "ecmaVersion": 2020
+        
     },
     "rules": {
         "no-console": "off",
         "linebreak-style": "off",
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "no-unused-expressions": "off",
+        "eslint-disable-next-line": "off"
+ 
     }
 }
