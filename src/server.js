@@ -30,6 +30,8 @@ const uploads = require('./api/uploads');
 const StorageService = require('./services/storage/StorageService');
 const UploadsValidator = require('./validator/uploads');
 
+const CacheService = require('./services/redis/CacheService');
+
 const TokenManager = require('./tokenize/TokenManager');
 
 const init = async () => {
@@ -72,7 +74,7 @@ const init = async () => {
     {
       plugin: notes,
       options: {
-        service: new NotesService(new CollaborationsService()),
+        service: new NotesService(new CollaborationsService(), new CacheService()),
         validator: NotesValidator,
       },
     },
@@ -95,7 +97,7 @@ const init = async () => {
     {
       plugin: collaborations,
       options: {
-        collaborationsService: new CollaborationsService(),
+        collaborationsService: new CollaborationsService(new CacheService()),
         notesService: new NotesService(),
         validator: CollaborationsValidator,
       },
