@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
+const path = require('path');
 const Inert = require('@hapi/inert');
 const ClientError = require('./exception/ClientError');
 
@@ -26,7 +27,7 @@ const ProducerService = require('./services/rabbitmq/ProducerService');
 const ExportsValidator = require('./validator/exports');
 
 const uploads = require('./api/uploads');
-const StorageService = require('./services/S3/StorageService');
+const StorageService = require('./services/storage/StorageService');
 const UploadsValidator = require('./validator/uploads');
 
 const CacheService = require('./services/redis/CacheService');
@@ -111,7 +112,7 @@ const init = async () => {
     {
       plugin: uploads,
       options: {
-        service: new StorageService(),
+        service: new StorageService(path.resolve(__dirname, 'api/uploads/file/images')),
         validator: UploadsValidator,
       },
     },
